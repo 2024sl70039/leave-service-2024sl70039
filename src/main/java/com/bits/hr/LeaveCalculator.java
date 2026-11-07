@@ -1,5 +1,6 @@
 package com.bits.hr;
 
+// Employee Leave Service - 2024sl70039
 public class LeaveCalculator {
     public int getRemainingLeave(int totalLeave, int usedLeave) {
         if (usedLeave < 0 || usedLeave > totalLeave)
