@@ -22,11 +22,11 @@ pipeline {
     stage('Code Inspection - SonarQube') {
       steps {
         withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
-          sh 'mvn -B org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.1.2184:sonar \
+          sh """mvn -B org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.1.2184:sonar \
                -Dsonar.projectKey=leave-service-2024sl70039 \
                -Dsonar.host.url=http://localhost:9000 \
-               -Dsonar.login=$SONAR_TOKEN \
-               -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml'
+               -Dsonar.login=${SONAR_TOKEN} \
+               -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml"""
         }
       }
     }
