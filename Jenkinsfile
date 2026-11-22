@@ -30,6 +30,24 @@ pipeline {
         }
       }
     }
+    stage('Build Docker Image') {
+      steps {
+        sh 'docker build -t leave-service-2024sl70039:${BUILD_NUMBER} .'
+      }
+    }
+    stage('Deploy to Staging') {
+      steps {
+        sh """
+          docker rm -f leave-service-staging || true
+          docker run -d --name leave-service-staging \
+            -e APP_ENV=staging -p 8085:8080 \
+            leave-service-2024sl70039:${BUILD_NUMBER}
+          sleep 5
+          curl -s http://localhost:8085
+        """
+      }
+    }
+
   }
   post {
     success {
